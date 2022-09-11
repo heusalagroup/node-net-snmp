@@ -4,6 +4,7 @@ declare type OidStringList = string[];
 
 declare interface VarBind {
     oid: string;
+    type: ObjectType;
     value: string;
 }
 
@@ -11,6 +12,24 @@ declare type VarBindList = VarBind[];
 
 declare interface SessionGetCallback {
     (error: any, varbinds: VarBindList) : void;
+}
+
+declare enum ObjectType {
+    Boolean = 1,
+    Integer = 2,
+    BitString = 3,
+    OctetString = 4,
+    Null = 5,
+    OID = 6,
+    IpAddress = 64,
+    Counter = 65,
+    Gauge = 66,
+    TimeTicks = 67,
+    Opaque = 68,
+    Counter64 = 70,
+    NoSuchObject = 128,
+    NoSuchInstance = 129,
+    EndOfMibView = 130,
 }
 
 declare enum TrapType {
@@ -109,6 +128,7 @@ export class Session {
     target : string;
     version : Version;
     get(oids: OidStringList, callback: SessionGetCallback);
+    getNext(oids: OidStringList, callback: SessionGetCallback);
     trap(trapType: TrapType, callback: SessionTrapCallback);
     close(): void;
     static create(target : string, community ?: string, options ?: SessionOptions) : Session;
