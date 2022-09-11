@@ -3,6 +3,7 @@
   "version": "3.8.3",
   "description": "JavaScript implementation of the Simple Network Management Protocol (SNMP)",
   "main": "index.js",
+  "typings": "index.d.ts",
   "directories": {
     "example": "example"
   },
